@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      host: localhost
+      port: 27017
+      database: notes_app
+      username: ${MONGO_USER:user}
+      password: ${MONGO_PASSWORD:123}
+      auto-index-creation: true
