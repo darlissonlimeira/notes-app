@@ -1,8 +1,8 @@
 package com.br.notesapp.notesappserver.service;
 
-import com.br.notesapp.notesappserver.dto.CreateNoteRequestDTO;
-import com.br.notesapp.notesappserver.dto.NoteDTO;
-import com.br.notesapp.notesappserver.dto.UpdateNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.note.NoteDTO;
+import com.br.notesapp.notesappserver.dto.note.UpdateNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.user.CreateNoteRequestDTO;
 
 import java.util.List;
 

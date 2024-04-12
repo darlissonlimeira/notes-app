@@ -1,8 +1,8 @@
 package com.br.notesapp.notesappserver.service.impl;
 
-import com.br.notesapp.notesappserver.dto.CreateNoteRequestDTO;
-import com.br.notesapp.notesappserver.dto.NoteDTO;
-import com.br.notesapp.notesappserver.dto.UpdateNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.note.NoteDTO;
+import com.br.notesapp.notesappserver.dto.note.UpdateNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.user.CreateNoteRequestDTO;
 import com.br.notesapp.notesappserver.exception.NoteNotFoundException;
 import com.br.notesapp.notesappserver.exception.UserNotFoundException;
 import com.br.notesapp.notesappserver.model.Note;
@@ -51,7 +51,6 @@ public class NoteServiceImpl implements NoteService {
         if (note.isEmpty()) {
             throw new NoteNotFoundException(String.format("note not found with id: %s", id));
         }
-        System.out.println(note.get().getUser().getUsername());
         return mapper.map(note.get(), NoteDTO.class);
     }
 

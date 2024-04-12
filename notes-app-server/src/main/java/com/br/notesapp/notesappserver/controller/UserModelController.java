@@ -1,11 +1,11 @@
 package com.br.notesapp.notesappserver.controller;
 
-import com.br.notesapp.notesappserver.api.SuccessResponse;
-import com.br.notesapp.notesappserver.dto.CreateUserRequestDTO;
-import com.br.notesapp.notesappserver.dto.DeleteUserRequestDTO;
-import com.br.notesapp.notesappserver.dto.UpdateUserRequestDTO;
-import com.br.notesapp.notesappserver.dto.UserModelDTO;
-import com.br.notesapp.notesappserver.service.UserModelService;
+import com.br.notesapp.notesappserver.dto.api.SuccessResponse;
+import com.br.notesapp.notesappserver.dto.user.CreateUserRequestDTO;
+import com.br.notesapp.notesappserver.dto.user.DeleteUserRequestDTO;
+import com.br.notesapp.notesappserver.dto.user.UpdateUserRequestDTO;
+import com.br.notesapp.notesappserver.dto.user.UserModelDTO;
+import com.br.notesapp.notesappserver.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,9 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserModelController {
 
-    private final UserModelService service;
+    private final UserService service;
 
-    public UserModelController(UserModelService service) {
+    public UserModelController(UserService service) {
         this.service = service;
     }
 

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class UserModel implements Serializable {
 
     private String password;
 
-    private Set<UserModelRole> roles;
+    private Set<UserModelRole> roles = new HashSet<>();
 
     private boolean active = true;
 

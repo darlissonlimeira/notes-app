@@ -1,10 +1,10 @@
 package com.br.notesapp.notesappserver.controller;
 
-import com.br.notesapp.notesappserver.api.SuccessResponse;
-import com.br.notesapp.notesappserver.dto.CreateNoteRequestDTO;
-import com.br.notesapp.notesappserver.dto.DeleteNoteRequestDTO;
-import com.br.notesapp.notesappserver.dto.NoteDTO;
-import com.br.notesapp.notesappserver.dto.UpdateNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.api.SuccessResponse;
+import com.br.notesapp.notesappserver.dto.note.DeleteNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.note.NoteDTO;
+import com.br.notesapp.notesappserver.dto.note.UpdateNoteRequestDTO;
+import com.br.notesapp.notesappserver.dto.user.CreateNoteRequestDTO;
 import com.br.notesapp.notesappserver.service.NoteService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class NoteController {
     }
 
     @DeleteMapping()
-    public ResponseEntity deleteById(@RequestBody DeleteNoteRequestDTO request) {
+    public ResponseEntity<?> deleteById(@RequestBody DeleteNoteRequestDTO request) {
         service.deleteById(request.id());
         return ResponseEntity.noContent().build();
     }
@@ -47,7 +47,7 @@ public class NoteController {
     }
 
     @PutMapping()
-    public ResponseEntity update(@RequestBody @Valid UpdateNoteRequestDTO request) {
+    public ResponseEntity<?> update(@RequestBody @Valid UpdateNoteRequestDTO request) {
         service.update(request);
         return ResponseEntity.noContent().build();
     }
