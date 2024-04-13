@@ -1,10 +1,12 @@
 package com.br.notesapp.notesappserver.config;
 
+import com.br.notesapp.notesappserver.exception.InvalidBearerTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -13,22 +15,21 @@ import java.io.IOException;
 @Component
 public class BearerAuthenticationFilter extends OncePerRequestFilter {
 
-    private final String TOKEN_PREFIX = "Bearer ";
+    private final BearerAuthenticationProvider bearerAuthenticationProvider;
 
-    private final AuthProvider authProvider;
-
-    public BearerAuthenticationFilter(AuthProvider authProvider) {
-        this.authProvider = authProvider;
+    public BearerAuthenticationFilter(BearerAuthenticationProvider bearerAuthenticationProvider) {
+        this.bearerAuthenticationProvider = bearerAuthenticationProvider;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (bearerToken != null && bearerToken.startsWith(TOKEN_PREFIX)) {
-            var token = bearerToken.replace(TOKEN_PREFIX, "");
-            authProvider.authenticateUser(token);
+        try {
+            var authentication = bearerAuthenticationProvider.authenticateUser(request);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (InvalidBearerTokenException ex) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
         }
         filterChain.doFilter(request, response);
     }
-    
+
 }

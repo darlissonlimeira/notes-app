@@ -55,7 +55,6 @@ public class NotesAppServerApplication {
             var note4 = new Note(users.get(3), "anime list ", "jujutsu kaizen, mob psycho");
             note4.setCompleted(true);
             noteRepository.insert(List.of(note1, note2, note3, note4));
-
         };
     }
 }
