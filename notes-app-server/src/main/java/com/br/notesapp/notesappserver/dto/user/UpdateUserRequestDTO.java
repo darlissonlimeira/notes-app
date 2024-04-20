@@ -16,6 +16,7 @@ public class UpdateUserRequestDTO {
     @Size(min = 3, max = 20, message = "username length must be between 3 and 20")
     String username;
 
+    @Size(min = 8, message = "password lenght must be at least 8")
     String password;
 
     boolean active;
