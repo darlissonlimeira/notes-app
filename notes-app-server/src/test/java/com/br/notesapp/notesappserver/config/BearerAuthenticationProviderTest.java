@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
@@ -26,7 +25,6 @@ class BearerAuthenticationProviderTest extends MongoTestContainer {
     @Test
     void shouldAuthenticateUserWithSuccess() {
         // given
-        var user = User.builder().username("john").password("123").authorities("EMPLOYEE").build();
         var request = new MockHttpServletRequest();
         Mockito.when(tokenProvider.resolve(request)).thenReturn("access_token");
         Mockito.when(tokenProvider.verify("access_token")).thenReturn(new TokenPayload("john", List.of("EMPLOYEE")));
