@@ -18,11 +18,11 @@ import java.util.List;
 @Service
 public class NoteService {
 
-    private NoteRepository noteRepository;
+    private final NoteRepository noteRepository;
 
-    private UserModelRepository userRepository;
+    private final UserModelRepository userRepository;
 
-    private Mapper mapper;
+    private final Mapper mapper;
 
     public NoteService(NoteRepository noteRepository, UserModelRepository userRepository, Mapper mapper) {
         this.noteRepository = noteRepository;
