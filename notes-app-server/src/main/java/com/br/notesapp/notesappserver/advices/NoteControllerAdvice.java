@@ -1,7 +1,8 @@
-package com.br.notesapp.notesappserver.exception;
+package com.br.notesapp.notesappserver.advices;
 
 import com.br.notesapp.notesappserver.dto.api.ErrorData;
 import com.br.notesapp.notesappserver.dto.api.ErrorResponse;
+import com.br.notesapp.notesappserver.exception.NoteNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.dao.DuplicateKeyException;
