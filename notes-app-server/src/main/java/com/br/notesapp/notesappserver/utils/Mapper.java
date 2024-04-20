@@ -8,7 +8,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper implements ObjectMapper {
+public class Mapper {
 
     private ModelMapper mapper;
 
@@ -16,13 +16,12 @@ public class Mapper implements ObjectMapper {
     }
 
     @PostConstruct
-    private void init() {
+    private void configure() {
         mapper = new ModelMapper();
         mapper.typeMap(Note.class, NoteDTO.class).addMapping(note -> note.getUser().getUsername(), (noteDTO, value) -> noteDTO.setUser(toString()));
         mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
-    @Override
     public <D> D map(Object source, Class<D> c) {
         return mapper.map(source, c);
     }
