@@ -29,7 +29,7 @@ public class AuthService {
     public AuthTokens login(LoginRequestDTO request) throws BadCredentialsException {
         var userDetails = userAuthDetailsService.loadUserByUsername(request.username());
         if (!passwordEncoder.matches(request.password(), userDetails.getPassword()))
-            throw new BadCredentialsException("Invalid user credentials.");
+            throw new BadCredentialsException("The provided password do not match the encoded password.");
         var accessToken = accessTokenProvider.generate(userDetails);
         var refreshToken = refreshTokenProvider.generate(userDetails);
         return new AuthTokens(accessToken, refreshToken);
