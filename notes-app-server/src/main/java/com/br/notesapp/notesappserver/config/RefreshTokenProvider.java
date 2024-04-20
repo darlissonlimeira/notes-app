@@ -18,11 +18,9 @@ import java.util.Arrays;
 public class RefreshTokenProvider implements TokenProvider {
 
     private final String JWT_COOKIE = "jwt";
-
+    private final TokenUtils tokenUtils;
     @Value("${REFRESH_TOKEN_SECRET}")
     private String tokenSecret;
-
-    private TokenUtils tokenUtils;
 
     public RefreshTokenProvider(TokenUtils tokenUtils) {
         this.tokenUtils = tokenUtils;
