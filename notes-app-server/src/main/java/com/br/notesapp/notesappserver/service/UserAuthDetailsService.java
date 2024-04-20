@@ -19,7 +19,7 @@ public class UserAuthDetailsService {
         this.repository = repository;
     }
 
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
         Optional<UserModel> userModel = repository.findByUsername(username);
         var user = userModel.orElseThrow(() -> new UserNotFoundException(username));
         var authorities = user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.name())).toList();

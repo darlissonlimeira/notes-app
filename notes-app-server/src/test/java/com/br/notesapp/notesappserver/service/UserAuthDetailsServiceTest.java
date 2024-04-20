@@ -1,36 +1,38 @@
 package com.br.notesapp.notesappserver.service;
 
+import com.br.notesapp.notesappserver.MongoTestContainer;
 import com.br.notesapp.notesappserver.exception.UserNotFoundException;
 import com.br.notesapp.notesappserver.model.UserModel;
 import com.br.notesapp.notesappserver.model.UserModelRole;
 import com.br.notesapp.notesappserver.repository.UserModelRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.HashSet;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-class UserAuthDetailsServiceTest {
+@SpringBootTest
+class UserAuthDetailsServiceTest extends MongoTestContainer {
 
+    @MockBean
     UserModelRepository userRepository;
 
-    @BeforeEach
-    void setUp() {
-        userRepository = Mockito.mock(UserModelRepository.class);
-    }
-
+    @Autowired
+    UserAuthDetailsService userAuthDetailsService;
+    
     @Test
     void shouldThrowUserNotFoundExceptionIfUserNotFound() {
         // given / when
-        Mockito.when(userRepository.findByUsername("mark")).thenReturn(Optional.empty());
-        var sut = new UserAuthDetailsService(userRepository);
+        when(userRepository.findByUsername("mark")).thenReturn(Optional.empty());
 
         // then
-        assertThrowsExactly(UserNotFoundException.class, () -> sut.loadUserByUsername("mark"));
+        assertThrowsExactly(UserNotFoundException.class, () -> userAuthDetailsService.loadUserByUsername("mark"));
     }
 
     @Test
@@ -42,11 +44,10 @@ class UserAuthDetailsServiceTest {
         userModel.setRoles(new HashSet<>() {{
             add(UserModelRole.EMPLOYEE);
         }});
-        Mockito.when(userRepository.findByUsername("john")).thenReturn(Optional.of(userModel));
-        var sut = new UserAuthDetailsService(userRepository);
+        when(userRepository.findByUsername("john")).thenReturn(Optional.of(userModel));
 
         // when
-        var userDetails = sut.loadUserByUsername("john");
+        var userDetails = userAuthDetailsService.loadUserByUsername("john");
 
         // then
         assertEquals("john", userDetails.getUsername());
