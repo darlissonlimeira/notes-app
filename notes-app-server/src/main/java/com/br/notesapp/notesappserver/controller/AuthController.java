@@ -22,15 +22,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody LoginRequestDTO request, HttpServletResponse response) {
         var loginResponse = new ResponseDTO();
-        try {
-            var tokens = authService.login(request);
-            var jwtCookie = JwtCookieUtils.createJwtCookie(tokens.refreshToken());
-            loginResponse.put("access_token", tokens.accessToken());
-            response.addCookie(jwtCookie);
-            return ResponseEntity.ok(loginResponse);
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
-        }
+        var tokens = authService.login(request);
+        var jwtCookie = JwtCookieUtils.createJwtCookie(tokens.refreshToken());
+        loginResponse.put("access_token", tokens.accessToken());
+        response.addCookie(jwtCookie);
+        return ResponseEntity.ok(loginResponse);
     }
 
 
@@ -44,12 +40,8 @@ public class AuthController {
     @GetMapping("/refresh")
     public ResponseEntity<ResponseDTO> refresh(HttpServletRequest request) {
         var tokenResponse = new ResponseDTO();
-        try {
-            var accessToken = authService.getAccessToken(request);
-            tokenResponse.put("access_token", accessToken);
-            return ResponseEntity.ok(tokenResponse);
-        } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
-        }
+        var accessToken = authService.getAccessToken(request);
+        tokenResponse.put("access_token", accessToken);
+        return ResponseEntity.ok(tokenResponse);
     }
 }
