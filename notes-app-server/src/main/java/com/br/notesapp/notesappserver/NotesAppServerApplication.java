@@ -48,6 +48,8 @@ public class NotesAppServerApplication {
 
             users = userModelRepository.findAll();
 
+            if (users.isEmpty()) return;
+
             var note1 = new Note(users.get(0), "Supermarket list", "eggs, tomatos");
             var note2 = new Note(users.get(1), "tv shows ", "barry, shameless");
             var note3 = new Note(users.get(2), "game list", "forza, god of war, gta V");
