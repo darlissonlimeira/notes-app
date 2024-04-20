@@ -25,7 +25,7 @@ public class UserModelController {
 
     @GetMapping()
     public ResponseEntity<SuccessResponse> findAll() {
-        List<UserModelDTO> users = service.find();
+        List<UserModelDTO> users = service.findAll();
         return ResponseEntity.ok(new SuccessResponse(users));
     }
 
@@ -49,7 +49,7 @@ public class UserModelController {
 
     @DeleteMapping()
     public ResponseEntity<SuccessResponse> delete(@RequestBody @Valid DeleteUserRequestDTO request) {
-        service.deleteOne(request.id());
+        service.deleteById(request.id());
         return ResponseEntity.noContent().build();
     }
 
