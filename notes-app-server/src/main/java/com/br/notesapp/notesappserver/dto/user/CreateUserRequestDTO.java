@@ -11,7 +11,7 @@ public class CreateUserRequestDTO {
     @Size(min = 5, max = 30, message = "username length must be between 5 and 30")
     private String username;
 
-    @Size(min = 8, message = "password lengh must be at least 8")
+    @Size(min = 8, message = "password lenght must be at least 8")
     private String password;
 
     @Size(min = 1)
