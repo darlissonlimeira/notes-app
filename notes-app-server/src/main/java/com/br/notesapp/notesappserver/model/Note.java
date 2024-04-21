@@ -115,4 +115,17 @@ public class Note implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id='" + id + '\'' +
+                ", user=" + user +
+                ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", completed=" + completed +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
