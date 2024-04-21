@@ -64,4 +64,14 @@ public class UserModelDTO implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "UserModelDTO{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", roles=" + roles +
+                ", active=" + active +
+                '}';
+    }
 }
